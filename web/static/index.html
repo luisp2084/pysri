@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>PySRI · Facturación electrónica</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header>
+  <h1>PySRI</h1>
+  <p>Validación, firma XAdES-BES y envío de facturas electrónicas al SRI</p>
+</header>
+
+<main>
+  <section class="card">
+    <h2>1. Acceso</h2>
+    <label for="apiKey">API key</label>
+    <input id="apiKey" type="password" autocomplete="off" spellcheck="false" maxlength="256"
+           placeholder="Se guarda solo en esta pestaña (sessionStorage)">
+    <p class="hint" id="serverInfo"></p>
+  </section>
+
+  <section class="card">
+    <h2>2. Factura (JSON)</h2>
+    <div class="row">
+      <button type="button" id="btnExample" class="secondary">Cargar ejemplo</button>
+      <button type="button" id="btnFormat" class="secondary">Formatear</button>
+    </div>
+    <textarea id="invoice" rows="22" spellcheck="false" aria-label="Factura en JSON"></textarea>
+    <div class="row">
+      <button type="button" id="btnValidate">Validar</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>3. Certificado de firma</h2>
+    <label for="cert">Archivo .p12 / .pfx</label>
+    <input id="cert" type="file" accept=".p12,.pfx,application/x-pkcs12">
+    <label for="password">Contraseña del certificado</label>
+    <input id="password" type="password" autocomplete="off" maxlength="256">
+    <p class="hint">El certificado y la contraseña se usan solo en memoria para firmar y no se almacenan en el servidor.</p>
+    <div class="row">
+      <button type="button" id="btnSign">Firmar</button>
+      <button type="button" id="btnSend" class="primary">Firmar y enviar al SRI</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>4. Consultar autorización</h2>
+    <label for="accessKey">Clave de acceso (49 dígitos)</label>
+    <input id="accessKey" inputmode="numeric" pattern="\d{49}" maxlength="49" spellcheck="false">
+    <div class="row">
+      <button type="button" id="btnAuth">Consultar</button>
+    </div>
+  </section>
+
+  <section class="card" id="resultCard" hidden>
+    <h2>Resultado</h2>
+    <p id="status" class="status" role="status"></p>
+    <ul id="messages" class="messages"></ul>
+    <div class="row">
+      <button type="button" id="btnDownload" class="secondary" hidden>Descargar XML</button>
+    </div>
+    <pre id="output"></pre>
+  </section>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
